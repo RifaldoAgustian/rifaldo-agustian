@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Lembur</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container my-4">
+    <h2>Data Lembur</h2>
+    <p>Berikut adalah data lembur karyawan dan formulir untuk mencatat lembur baru.</p>
+    <hr>
+
+    <!-- Form Input Data Lembur -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Tambah Data Lembur</h5>
+        </div>
+        <div class="card-body">
+            <form id="formLembur">
+                <div class="form-group">
+                    <label for="namaKaryawan">Nama Karyawan</label>
+                    <input type="text" class="form-control" id="namaKaryawan" placeholder="Masukkan Nama Karyawan" required>
+                </div>
+                <div class="form-group">
+                    <label for="tanggalLembur">Tanggal Lembur</label>
+                    <input type="date" class="form-control" id="tanggalLembur" required>
+                </div>
+                <div class="form-group">
+                    <label for="jamMulai">Jam Mulai</label>
+                    <input type="time" class="form-control" id="jamMulai" required>
+                </div>
+                <div class="form-group">
+                    <label for="jamSelesai">Jam Selesai</label>
+                    <input type="time" class="form-control" id="jamSelesai" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Simpan Data</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabel Data Lembur -->
+    <div class="card">
+        <div class="card-header">
+            <h5>Daftar Lembur</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nama Karyawan</th>
+                        <th scope="col">Tanggal Lembur</th>
+                        <th scope="col">Jam Mulai</th>
+                        <th scope="col">Jam Selesai</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="dataLemburBody">
+                    <!-- Data Lembur akan ditampilkan di sini -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        let lemburList = [];
+
+        // Fungsi untuk menyimpan data lembur
+        $('#formLembur').submit(function(event) {
+            event.preventDefault();
+
+            const nama = $('#namaKaryawan').val();
+            const tanggal = $('#tanggalLembur').val();
+            const jamMulai = $('#jamMulai').val();
+            const jamSelesai = $('#jamSelesai').val();
+
+            const lembur = {
+                id: lemburList.length + 1,
+                nama,
+                tanggal,
+                jamMulai,
+                jamSelesai
+            };
+
+            lemburList.push(lembur);
+            updateTable();
+            $('#formLembur')[0].reset();
+        });
+
+        // Fungsi untuk memperbarui tabel lembur
+        function updateTable() {
+            const dataLemburBody = $('#dataLemburBody');
+            dataLemburBody.empty();
+
+            lemburList.forEach(lembur => {
+                dataLemburBody.append(`
+                    <tr>
+                        <th scope="row">${lembur.id}</th>
+                        <td>${lembur.nama}</td>
+                        <td>${lembur.tanggal}</td>
+                        <td>${lembur.jamMulai}</td>
+                        <td>${lembur.jamSelesai}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" onclick="editLembur(${lembur.id})">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteLembur(${lembur.id})">Hapus</button>
+                        </td>
+                    </tr>
+                `);
+            });
+        }
+
+        // Fungsi untuk menghapus lembur
+        window.deleteLembur = function(id) {
+            lemburList = lemburList.filter(lembur => lembur.id !== id);
+            updateTable();
+        };
+
+        // Fungsi untuk mengedit lembur
+        window.editLembur = function(id) {
+            const lembur = lemburList.find(l => l.id === id);
+            $('#namaKaryawan').val(lembur.nama);
+            $('#tanggalLembur').val(lembur.tanggal);
+            $('#jamMulai').val(lembur.jamMulai);
+            $('#jamSelesai').val(lembur.jamSelesai);
+            deleteLembur(id);
+        };
+    });
+</script>
+
+<div class="container mt-5">
+    <!-- Tombol Kembali -->
+    <button class="btn btn-primary" onclick="goBack()">Kembali</button>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+<!-- Bootstrap JavaScript and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
