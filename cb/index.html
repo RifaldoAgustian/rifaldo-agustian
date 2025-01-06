@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <div id="portfolio">
+        <h1>FILTER GALERY</h1>
+    <input type="text" id="search-bar" placeholder="Search projects...">
+    <select id="category-filter">
+      <option value="all">All </option>
+      <option value="PRJ">Projek</option>
+      <option value="FT">Sertificate</option>
+      
+    </select>
+
+    <div id="gallery">
+        <div class="gallery-item" data-category="PRJ" data-image="log.png">Login</div>
+         <div class="gallery-item" data-category="FT" data-image="sertif/html.jpg">Sertificate 1</div>
+        <div class="gallery-item" data-category="PRJ" data-image="dashboard.png">Dashboard</div>
+         <div class="gallery-item" data-category="FT" data-image="sertif/css.jpg">Sertificate 2</div>
+        <div class="gallery-item" data-category="PRJ" data-image="kal.png">Kalkulator</div>
+         <div class="gallery-item" data-category="FT" data-image="sertif/js.jpg">Sertificate 3</div>
+        <div class="gallery-item" data-category="PRJ" data-image="diagram.png">Penjualan tahunan</div>
+         <div class="gallery-item" data-category="FT" data-image="sertif/jsin.png">Sertificate 4</div>
+         <div class="gallery-item" data-category="PRJ" data-image="trs.png">Tetris</div>
+       </div>
+       <div id="preview">
+         <img id="preview-image" src="" alt="Preview">
+       </div>
+     </div>
+
+    <style> 
+ #preview {
+   position: fixed];
+   display: none;
+   top: 0;
+   left: 0;
+   pointer-events: none;
+ }
+ #preview img {
+   max-width: 200px;
+   max-height: 200px;
+   border: 1px solid #000000;
+   background-color: #00ff1e;
+   padding: 5px;
+   box-shadow: 0 2px 5px rgb(0, 0, 0);
+ }
+
+</style>
+
+
+<script>
+// JavaScript Implementation
+const portfolio = document.getElementById('portfolio');
+const searchBar = document.getElementById('search-bar');
+const categoryFilter = document.getElementById('category-filter');
+const gallery = document.getElementById('gallery');
+const preview = document.getElementById('preview');
+const previewImage = document.getElementById('preview-image');
+
+// Function to filter gallery items
+function filterGallery() {
+    const searchTerm = searchBar.value.toLowerCase();
+    const selectedCategory = categoryFilter.value;
+    const galleryItems = gallery.getElementsByClassName('gallery-item');
+
+    Array.from(galleryItems).forEach(item => {
+        const category = item.getAttribute('data-category');
+        const content = item.textContent.toLowerCase();
+
+        const matchesSearch = content.includes(searchTerm);
+        const matchesCategory = selectedCategory === 'all' || category === selectedCategory;
+
+        if (matchesSearch && matchesCategory) {
+            item.style.display = '';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+// Function to show preview on hover
+function showPreview(event) {
+    const imageUrl = event.target.getAttribute('data-image');
+    if (imageUrl) {
+        previewImage.src = imageUrl;
+        preview.style.display = 'block';
+        preview.style.top = `${event.clientY + 10}px`;
+        preview.style.left = `${event.clientX + 10}px`;
+    }
+}
+
+// Function to hide preview
+function hidePreview() {
+    preview.style.display = 'none';
+    previewImage.src = '';
+}
+
+// Add event listeners for gallery item hover
+Array.from(gallery.getElementsByClassName('gallery-item')).forEach(item => {
+    item.addEventListener('mouseover', showPreview);
+    item.addEventListener('mousemove', showPreview);
+    item.addEventListener('mouseout', hidePreview);
+});
+
+// Add event listeners for search and category filter
+searchBar.addEventListener('input', filterGallery);
+categoryFilter.addEventListener('change', filterGallery);
+
+
+</script>
+</html>

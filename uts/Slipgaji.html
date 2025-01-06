@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Slip Gaji</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container my-4">
+    <h2>Form Slip Gaji Karyawan</h2>
+    <hr>
+    <form>
+        <div class="form-group">
+            <label for="employeeName">Nama Karyawan</label>
+            <input type="text" class="form-control" id="employeeName" placeholder="Masukkan Nama Karyawan" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="employeeId">ID Karyawan</label>
+            <input type="text" class="form-control" id="employeeId" placeholder="Masukkan ID Karyawan" required>
+        </div>
+
+        <div class="form-group">
+            <label for="salaryMonth">Bulan Gaji</label>
+            <input type="month" class="form-control" id="salaryMonth" required>
+        </div>
+
+        <div class="form-group">
+            <label for="basicSalary">Total Gaji Pokok</label>
+            <input type="number" class="form-control" id="basicSalary" placeholder="Masukkan Total Gaji Pokok" required>
+        </div>
+
+        <div class="form-group">
+            <label for="allowance">Tunjangan</label>
+            <input type="number" class="form-control" id="allowance" placeholder="Masukkan Total Tunjangan" required>
+        </div>
+
+        <div class="form-group">
+            <label for="deduction">Potongan</label>
+            <input type="number" class="form-control" id="deduction" placeholder="Masukkan Total Potongan" required>
+        </div>
+
+        <div class="form-group">
+            <label for="netSalary">Gaji Bersih</label>
+            <input type="number" class="form-control" id="netSalary" placeholder="Masukkan Gaji Bersih" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Simpan Slip Gaji</button>
+    </form>
+</div>
+
+<div class="container mt-5">
+    <!-- Tombol Kembali -->
+    <button class="btn btn-primary" onclick="goBack()">Kembali</button>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+
+<!-- Bootstrap JS, jQuery, and Popper -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

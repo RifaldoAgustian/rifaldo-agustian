@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Izin</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container my-4">
+    <h2>Data Izin</h2>
+    <p>Berikut adalah data izin karyawan dan formulir untuk mencatat izin baru.</p>
+    <hr>
+
+    <!-- Form Input Data Izin -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Tambah Data Izin</h5>
+        </div>
+        <div class="card-body">
+            <form id="formIzin">
+                <div class="form-group">
+                    <label for="namaKaryawan">Nama Karyawan</label>
+                    <input type="text" class="form-control" id="namaKaryawan" placeholder="Masukkan Nama Karyawan" required>
+                </div>
+                <div class="form-group">
+                    <label for="tanggalIzin">Tanggal Izin</label>
+                    <input type="date" class="form-control" id="tanggalIzin" required>
+                </div>
+                <div class="form-group">
+                    <label for="alasanIzin">Alasan Izin</label>
+                    <textarea class="form-control" id="alasanIzin" rows="3" placeholder="Masukkan Alasan Izin" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Simpan Data</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabel Data Izin -->
+    <div class="card">
+        <div class="card-header">
+            <h5>Daftar Izin</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nama Karyawan</th>
+                        <th scope="col">Tanggal Izin</th>
+                        <th scope="col">Alasan Izin</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="dataIzinBody">
+                    <!-- Data Izin akan ditampilkan di sini -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        let izinList = [];
+
+        // Fungsi untuk menyimpan data izin
+        $('#formIzin').submit(function(event) {
+            event.preventDefault();
+
+            const nama = $('#namaKaryawan').val();
+            const tanggal = $('#tanggalIzin').val();
+            const alasan = $('#alasanIzin').val();
+
+            const izin = {
+                id: izinList.length + 1,
+                nama,
+                tanggal,
+                alasan
+            };
+
+            izinList.push(izin);
+            updateTable();
+            $('#formIzin')[0].reset();
+        });
+
+        // Fungsi untuk memperbarui tabel izin
+        function updateTable() {
+            const dataIzinBody = $('#dataIzinBody');
+            dataIzinBody.empty();
+
+            izinList.forEach(izin => {
+                dataIzinBody.append(`
+                    <tr>
+                        <th scope="row">${izin.id}</th>
+                        <td>${izin.nama}</td>
+                        <td>${izin.tanggal}</td>
+                        <td>${izin.alasan}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" onclick="editIzin(${izin.id})">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteIzin(${izin.id})">Hapus</button>
+                        </td>
+                    </tr>
+                `);
+            });
+        }
+
+        // Fungsi untuk menghapus izin
+        window.deleteIzin = function(id) {
+            izinList = izinList.filter(izin => izin.id !== id);
+            updateTable();
+        };
+
+        // Fungsi untuk mengedit izin
+        window.editIzin = function(id) {
+            const izin = izinList.find(i => i.id === id);
+            $('#namaKaryawan').val(izin.nama);
+            $('#tanggalIzin').val(izin.tanggal);
+            $('#alasanIzin').val(izin.alasan);
+            deleteIzin(id);
+        };
+    });
+</script>
+
+<div class="container mt-5">
+    <!-- Tombol Kembali -->
+    <button class="btn btn-primary" onclick="goBack()">Kembali</button>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+<!-- Bootstrap JavaScript and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

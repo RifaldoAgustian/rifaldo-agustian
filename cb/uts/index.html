@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="design.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="un.jpg" alt="sidebar"><h1>Universitas Pamulang</h1>
+      
+          
+        
+        <ul>
+            <li><a href="#"><i class="fas fa-index"></i> Dashboard</a></li>
+            <p>Menu Karyawan</p>
+            <li><a href="karyawan.html"><i class="fas fa-karyawan"></i> Karyawan</a></li>
+            <li><a href="jabatan.html"><i class="fas fa-users"></i> Jabatan</a></li>
+            <li><a href="divisi.html"><i class="fas fa-cog"></i> Divisi</a></li>
+            <p>Menu Absensi</p>
+            <li><a href="absensi.html"><i class="fas fa-cog"></i> Abseni</a></li>
+            <li><a href="izin.html"><i class="fas fa-cog"></i> Izin</a></li>
+            <li><a href="lembur.html"><i class="fas fa-cog"></i> Lembur</a></li>
+            <p>Menu Penggajian</p>
+            <li><a href="Slipgaji.html"><i class="fas fa-cog"></i> Slip Gaji</a></li>
+            <li><a href="cetakgaji.html"><i class="fas fa-cog"></i> Cetak Gaji</a></li>
+            <p>Menu Laporan</p>
+            <li><a href="cetaklaporan.html"><i class="fas fa-cog"></i> Cetak Laporan</a></li>
+            <p>Menu Admin</p>
+            <li><a href="pengguna.html"><i class="fas fa-cog"></i> Pengguna</a></li>
+            <button class="add-btn"><i class="fas fa-plus"></i>Logout </button>
+            <script>
+                function logout() {
+                    if (confirm("Apakah Anda yakin ingin logout?")) {
+                        // Logika untuk logout, misalnya pengalihan halaman atau hapus sesi
+                        window.location.href = "login.html"; // Ganti dengan halaman login atau halaman lain setelah logout
+                    }
+                }
+            </script>
+
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h1>your dashboard activity.</h1>
+           
+        </header>
+
+        <div class="stats-grid">
+            <div class="card">
+                <i class="fas fa-file-alt"></i>
+                <h3>Data Pegawai</h3>
+                <p>100</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-eye"></i>
+                <h3>Absensi Hari Ini</h3>
+                <p>100</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-comment-dots"></i>
+                <h3>Izin Menunggu Konfirmasi</h3>
+                <p>0</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-thumbs-up"></i>
+                <h3>Lembur Menunggu Konfirmasi</h3>
+                <p>0</p>
+            </div>
+        </div>
+
+        
+        <button class="add-btn"><i class="fas fa-plus"></i> Add New Post</button>
+    </div>
+</body>
+</html>
